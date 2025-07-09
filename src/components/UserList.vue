@@ -5,12 +5,9 @@ const props = defineProps<{
     users: User[]
 }>()
 
-function formatBalance(saldo: any): string {
-    if(saldo === null || saldo === undefined) {
-        return '0';
-    }
-
-    return parseInt(saldo).toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
+function formatBalance(saldo: number): string {
+    let numberValue = Number(saldo) || 0;
+    return `$${numberValue.toLocaleString('es-CL')}`;
 }
 </script>
 
