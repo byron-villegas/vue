@@ -123,105 +123,105 @@ const formatRut = (value: string) => {
     return rut;
 }
 
-    const validateField = (fieldName: string, field: FormField) => {
-        let errors = [];
+const validateField = (fieldName: string, field: FormField) => {
+    let errors = [];
 
-        if (fieldName === 'rut') {
-            let rutValidation = validateRut(field);
-            if (!rutValidation.valid) {
-                errors.push(...rutValidation.errors);
-            }
+    if (fieldName === 'rut') {
+        let rutValidation = validateRut(field);
+        if (!rutValidation.valid) {
+            errors.push(...rutValidation.errors);
         }
-
-        if (field.required && String(field.value).trim() === '') {
-            errors.push('El campo es obligatorio.');
-        }
-
-        if (field.pattern && !field.pattern.test(field.value as string)) {
-            errors.push(`Debe cumplir con el formato requerido ${field.pattern.toString()}.`);
-        }
-
-        if (field.minLength && String(field.value).length < field.minLength) {
-            errors.push(`El largo minimo es ${field.minLength}.`);
-        }
-
-        if (field.maxLength && String(field.value).length > field.maxLength) {
-            errors.push(`El largo maximo es ${field.maxLength}.`);
-        }
-
-        if (field.min && parseInt(String(field.value)) < field.min) {
-            errors.push(`El valor minimo es ${field.min}.`);
-        }
-
-        if (field.max && parseInt(String(field.value)) > field.max) {
-            errors.push(`El valor maximo es ${field.max}.`);
-        }
-
-        let valid = errors.length === 0;
-
-        return { valid: valid, errors: errors };
     }
 
-    const handleValueChange = (e: any) => {
-        const { id, value } = e.target;
-
-        let fieldName: string = id.toUpperCase().includes('SEXO') ? 'sexo' : id;
-
-        let field = form.value[fieldName as keyof FormType];
-
-        console.log(fieldName, field);
-
-        let formatedValue = value;
-
-        if (id === 'rut') {
-            formatedValue = formatRut(value);
-        }
-
-        if (id === 'fechaNacimiento') {
-            const birthDate = new Date(value);
-            const today = new Date();
-            const age = today.getFullYear() - birthDate.getFullYear();
-            const monthDiff = today.getMonth() - birthDate.getMonth();
-
-            let edadField = form.value.edad;
-
-            edadField.valid = true;
-
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-                edadField.value = age - 1;
-            } else {
-                edadField.value = age;
-            }
-
-            if (edadField.value  < 0) {
-                edadField.value = 0;
-            }
-
-            let edadValidations = validateField('edad', edadField);
-
-            edadField.valid = edadValidations.valid;
-            edadField.errors = edadValidations.errors;
-
-            form.value.edad = edadField;
-        }
-
-        if (id === 'sexoM' || id === 'sexoF') {
-            formatedValue = id === 'sexoM' ? 'M' : 'F';
-
-            if (!e.target.checked) {
-                formatedValue = '';
-            }
-        }
-
-        field.value = formatedValue;
-
-        let validations = validateField(fieldName, field);
-
-        field.valid = validations.valid;
-        field.errors = validations.errors;
-
-        form.value[fieldName as keyof FormType] = field;
+    if (field.required && String(field.value).trim() === '') {
+        errors.push('El campo es obligatorio.');
     }
+
+    if (field.pattern && !field.pattern.test(field.value.toString())) {
+        errors.push(`Debe cumplir con el formato requerido ${field.pattern.toString()}.`);
+    }
+
+    if (field.minLength && String(field.value).length < field.minLength) {
+        errors.push(`El largo minimo es ${field.minLength}.`);
+    }
+
+    if (field.maxLength && String(field.value).length > field.maxLength) {
+        errors.push(`El largo maximo es ${field.maxLength}.`);
+    }
+
+    if (field.min && parseInt(String(field.value)) < field.min) {
+        errors.push(`El valor minimo es ${field.min}.`);
+    }
+
+    if (field.max && parseInt(String(field.value)) > field.max) {
+        errors.push(`El valor maximo es ${field.max}.`);
+    }
+
+    let valid = errors.length === 0;
+
+    return { valid: valid, errors: errors };
+}
+
+const handleValueChange = (e: any) => {
+    const { id, value } = e.target;
+
+    let fieldName: string = id.toUpperCase().includes('SEXO') ? 'sexo' : id;
+
+    let field = form.value[fieldName as keyof FormType];
+
+    console.log(fieldName, field);
+
+    let formatedValue = value;
+
+    if (id === 'rut') {
+        formatedValue = formatRut(value);
+    }
+
+    if (id === 'fechaNacimiento') {
+        const birthDate = new Date(value);
+        const today = new Date();
+        const age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+
+        let edadField = form.value.edad;
+
+        edadField.valid = true;
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            edadField.value = age - 1;
+        } else {
+            edadField.value = age;
+        }
+
+        if (edadField.value < 0) {
+            edadField.value = 0;
+        }
+
+        let edadValidations = validateField('edad', edadField);
+
+        edadField.valid = edadValidations.valid;
+        edadField.errors = edadValidations.errors;
+
+        form.value.edad = edadField;
+    }
+
+    if (id === 'sexoM' || id === 'sexoF') {
+        formatedValue = id === 'sexoM' ? 'M' : 'F';
+
+        if (!e.target.checked) {
+            formatedValue = '';
+        }
+    }
+
+    field.value = formatedValue;
+
+    let validations = validateField(fieldName, field);
+    
+    field.valid = validations.valid;
+    field.errors = validations.errors;
+
+    form.value[fieldName as keyof FormType] = field;
+}
 
 const validateForm = () => {
     let isValid = true;
@@ -247,6 +247,24 @@ const validateForm = () => {
     return isValid;
 }
 
+const resetForm = () => {
+    form.value.rut.value = '';
+    form.value.rut.errors = [];
+    form.value.nombres.value = '';
+    form.value.nombres.errors = [];
+    form.value.apellidos.value = '';
+    form.value.apellidos.errors = [];
+    form.value.fechaNacimiento.value = '';
+    form.value.fechaNacimiento.errors = [];
+    form.value.edad.value = 0;
+    form.value.edad.errors = [];
+    form.value.sexo.value = '';
+    form.value.sexo.errors = [];
+    form.value.saldo.value = 0;
+    form.value.saldo.errors = [];
+
+    validateForm();
+}
 
 const processForm = () => {
     let isValid = validateForm();
@@ -264,6 +282,7 @@ const processForm = () => {
             saldo: form.value.saldo.value as number
         };
         addUser(user);
+        resetForm();
     }
 }
 
@@ -275,91 +294,67 @@ validateForm();
         <h3 class="text-white">Add User</h3>
         <form @submit.prevent="processForm">
             <div class="mb-3">
-                <label htmlFor="rut" class="form-label text-white">RUT</label>
-                <input
-                    type="text"
+                <label for="rut" class="form-label text-white">RUT</label>
+                <input type="text"
                     :class="'form-control' + (form.rut.errors && form.rut.errors.length > 0 ? ' is-invalid' : '')"
-                    id="rut"
-                    :minLength="form.rut.minLength"
-                    :maxLength="form.rut.maxLength"
-                    :value="form.rut.value"
-                    :required="form.rut.required"
-                    @input="handleValueChange($event)"
-                />
-                <span className="text-danger">
-                    <div v-if="form.rut.errors && form.rut.errors.length > 0" v-for="(error, index) in form.rut.errors" :key="index" class="text-danger">
+                    id="rut" :minlength="form.rut.minLength" :maxlength="form.rut.maxLength" :value="form.rut.value"
+                    :required="form.rut.required" @input="handleValueChange($event)" />
+                <span class="text-danger">
+                    <div v-if="form.rut.errors && form.rut.errors.length > 0" v-for="(error, index) in form.rut.errors"
+                        :key="index" class="text-danger">
                         {{ error }}
                     </div>
                 </span>
             </div>
             <div class="mb-3">
-                <label htmlFor="nombres" class="form-label text-white">Nombres</label>
-                <input
-                    type="text"
+                <label for="nombres" class="form-label text-white">Nombres</label>
+                <input type="text"
                     :class="'form-control' + (form.rut.errors && form.rut.errors.length > 0 ? ' is-invalid' : '')"
-                    id="nombres"
-                    :minLength="form.nombres.minLength"
-                    :maxLength="form.nombres.maxLength"
-                    :value="form.nombres.value"
-                    :required="form.nombres.required"
-                    @input="handleValueChange($event)"
-                />
-                <span className="text-danger">
-                    <div v-if="form.nombres.errors && form.nombres.errors.length > 0" v-for="(error, index) in form.nombres.errors" :key="index" class="text-danger">
+                    id="nombres" :minlength="form.nombres.minLength" :maxlength="form.nombres.maxLength"
+                    :value="form.nombres.value" :required="form.nombres.required" @input="handleValueChange($event)" />
+                <span class="text-danger">
+                    <div v-if="form.nombres.errors && form.nombres.errors.length > 0"
+                        v-for="(error, index) in form.nombres.errors" :key="index" class="text-danger">
                         {{ error }}
                     </div>
                 </span>
             </div>
             <div class="mb-3">
-                <label htmlFor="apellidos" class="form-label text-white">Apellidos</label>
-                <input
-                    type="text"
+                <label for="apellidos" class="form-label text-white">Apellidos</label>
+                <input type="text"
                     :class="'form-control' + (form.rut.errors && form.rut.errors.length > 0 ? ' is-invalid' : '')"
-                    id="apellidos"
-                    :minLength="form.apellidos.minLength"
-                    :maxLength="form.apellidos.maxLength"
-                    :value="form.apellidos.value"
-                    :required="form.apellidos.required"
-                    @input="handleValueChange($event)"
-                />
-                <span className="text-danger">
-                    <div v-if="form.apellidos.errors && form.apellidos.errors.length > 0" v-for="(error, index) in form.apellidos.errors" :key="index" class="text-danger">
+                    id="apellidos" :minlength="form.apellidos.minLength" :maxlength="form.apellidos.maxLength"
+                    :value="form.apellidos.value" :required="form.apellidos.required"
+                    @input="handleValueChange($event)" />
+                <span class="text-danger">
+                    <div v-if="form.apellidos.errors && form.apellidos.errors.length > 0"
+                        v-for="(error, index) in form.apellidos.errors" :key="index" class="text-danger">
                         {{ error }}
                     </div>
                 </span>
             </div>
             <div class="mb-3">
-                <label htmlFor="fechaNacimiento" class="form-label text-white">Fecha de nacimiento</label>
-                <input
-                    type="date"
+                <label for="fechaNacimiento" class="form-label text-white">Fecha de nacimiento</label>
+                <input type="date"
                     :class="'form-control' + (form.fechaNacimiento.errors && form.fechaNacimiento.errors.length > 0 ? ' is-invalid' : '')"
-                    id="fechaNacimiento"
-                    min="1900-01-01"
-                    :value="form.fechaNacimiento.value"
-                    :required="form.fechaNacimiento.required"
-                    @change="handleValueChange($event)"
-                />
-                <span className="text-danger">
-                    <div v-if="form.fechaNacimiento.errors && form.fechaNacimiento.errors.length > 0" v-for="(error, index) in form.fechaNacimiento.errors" :key="index" class="text-danger">
+                    id="fechaNacimiento" min="1900-01-01" :value="form.fechaNacimiento.value"
+                    :required="form.fechaNacimiento.required" @change="handleValueChange($event)" />
+                <span class="text-danger">
+                    <div v-if="form.fechaNacimiento.errors && form.fechaNacimiento.errors.length > 0"
+                        v-for="(error, index) in form.fechaNacimiento.errors" :key="index" class="text-danger">
                         {{ error }}
                     </div>
                 </span>
             </div>
             <div class="mb-3">
-                <label htmlFor="edad" class="form-label text-white">Edad</label>
-                <input
-                    type="number"
+                <label for="edad" class="form-label text-white">Edad</label>
+                <input type="number"
                     :class="'form-control' + (form.edad.errors && form.edad.errors.length > 0 ? ' is-invalid' : '')"
-                    id="edad"
-                    readOnly
-                    :min="form.edad.min"
-                    :max="form.edad.max"
-                    :value="form.edad.value"
-                    :required="form.edad.required"
-                    @change="handleValueChange($event)"
-                />
-                <span className="text-danger">
-                    <div v-if="form.edad.errors && form.edad.errors.length > 0" v-for="(error, index) in form.edad.errors" :key="index" class="text-danger">
+                    id="edad" readOnly :min="form.edad.min" :max="form.edad.max" :value="form.edad.value"
+                    :required="form.edad.required" @change="handleValueChange($event)" />
+                <span class="text-danger">
+                    <div v-if="form.edad.errors && form.edad.errors.length > 0"
+                        v-for="(error, index) in form.edad.errors" :key="index" class="text-danger">
                         {{ error }}
                     </div>
                 </span>
@@ -367,46 +362,30 @@ validateForm();
             <div class="mb-3">
                 <label class="form-label text-white">Sexo</label>
                 <br />
-                <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="sexoM"
-                    :value="form.sexo.value"
-                    :required="form.sexo.required && form.sexo.value === ''"
-                    :checked="form.sexo.value === 'M'"
-                    @change="handleValueChange($event)"
-                    />
-                <label class="form-check-label text-white ms-1 me-2" htmlFor="sexoM">Masculino</label>
-                <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="sexoF"
-                    :value="form.sexo.value"
-                    :required="form.sexo.required && form.sexo.value === ''"
-                    :checked="form.sexo.value === 'F'"
-                    @change="handleValueChange($event)"
-                    />
-                <label class="form-check-label text-white ms-1" htmlFor="sexoF">Femenino</label>
-                <span className="text-danger">
-                    <div v-if="form.sexo.errors && form.sexo.errors.length > 0" v-for="(error, index) in form.sexo.errors" :key="index" class="text-danger">
+                <input type="checkbox" class="form-check-input" id="sexoM" :value="form.sexo.value"
+                    :required="form.sexo.required && form.sexo.value === ''" :checked="form.sexo.value === 'M'"
+                    @change="handleValueChange($event)" />
+                <label class="form-check-label text-white ms-1 me-2" for="sexoM">Masculino</label>
+                <input type="checkbox" class="form-check-input" id="sexoF" :value="form.sexo.value"
+                    :required="form.sexo.required && form.sexo.value === ''" :checked="form.sexo.value === 'F'"
+                    @change="handleValueChange($event)" />
+                <label class="form-check-label text-white ms-1" for="sexoF">Femenino</label>
+                <span class="text-danger">
+                    <div v-if="form.sexo.errors && form.sexo.errors.length > 0"
+                        v-for="(error, index) in form.sexo.errors" :key="index" class="text-danger">
                         {{ error }}
                     </div>
                 </span>
             </div>
             <div class="mb-3">
-                <label htmlFor="saldo" class="form-label text-white">Saldo</label>
-                <input
-                    type="number"
+                <label for="saldo" class="form-label text-white">Saldo</label>
+                <input type="number"
                     :class="'form-control' + (form.rut.errors && form.rut.errors.length > 0 ? ' is-invalid' : '')"
-                    id="saldo"
-                    :min="form.saldo.min"
-                    :max="form.saldo.max"
-                    :value="form.saldo.value"
-                    :required="form.saldo.required"
-                    @input="handleValueChange($event)"
-                />
-                <span className="text-danger">
-                    <div v-if="form.saldo.errors && form.saldo.errors.length > 0" v-for="(error, index) in form.saldo.errors" :key="index" class="text-danger">
+                    id="saldo" :min="form.saldo.min" :max="form.saldo.max" :value="form.saldo.value"
+                    :required="form.saldo.required" @input="handleValueChange($event)" />
+                <span class="text-danger">
+                    <div v-if="form.saldo.errors && form.saldo.errors.length > 0"
+                        v-for="(error, index) in form.saldo.errors" :key="index" class="text-danger">
                         {{ error }}
                     </div>
                 </span>

@@ -7,20 +7,10 @@ export const useUserStore = defineStore('users', {
   }),
   actions: {
     getUsers() {
-      this.users.push({
-        rut: '11111111-1',
-        nombres: 'Juan Carlos',
-        apellidos: 'Bodoque Triviño',
-        fechaNacimiento: '1996-06-22',
-        edad: 29,
-        sexo: 'M',
-        saldo: 100000
-      });
-
       return this.users;
     },
     addUser(user: User) {
       this.users.push(user);
-    },
+    }
   }
 })
