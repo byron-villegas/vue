@@ -28,7 +28,7 @@ function formatBalance(saldo: number): string {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(user, index) in props.users" :key="index" class="pointer">
+                <tr v-for="(user, index) in props.users" :key="index" class="pointer" v-hover>
                     <td>{{ index + 1 }}</td>
                     <td>{{ user.rut }}</td>
                     <td>{{ user.nombres }}</td>
@@ -46,5 +46,8 @@ function formatBalance(saldo: number): string {
 <style scoped>
 .pointer {
     cursor: pointer;
+}
+.hovered td {
+    background-color: #414142 !important;
 }
 </style>
