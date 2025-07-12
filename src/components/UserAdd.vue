@@ -391,6 +391,7 @@ validateForm();
                 </span>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="reset" class="btn btn-secondary ms-2" @click.prevent="resetForm">Limpiar</button>
         </form>
     </div>
 </template>
