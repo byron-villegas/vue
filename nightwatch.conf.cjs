@@ -31,40 +31,37 @@ module.exports = {
 
   // See https://nightwatchjs.org/guide/concepts/test-globals.html#external-test-globals
   globals_path: '',
-
   vite_dev_server: {
     start_vite: true,
     port: process.env.CI ? 4173 : 5173,
   },
-
   webdriver: {},
-
   test_workers: {
-    enabled: true,
-    workers: 'auto',
+    enabled: true, // One test worker per browser instance
+    workers: 'auto'
   },
-
   test_settings: {
     default: {
       disable_error_log: false,
       launch_url: `http://localhost:${process.env.CI ? '4173' : '5173'}`,
-
       screenshots: {
-        enabled: false,
-        path: 'screens',
-        on_failure: true,
+        enabled: true,
+        path: 'tests_output/screens',
+        on_failure: true
       },
-
+      videos: {
+        enabled: true,
+        path: 'tests_output/videos',
+        on_failure: true
+      },
       desiredCapabilities: {
-        browserName: 'firefox',
+        browserName: 'MicrosoftEdge'
       },
-
       webdriver: {
         start_process: true,
-        server_path: '',
-      },
+        server_path: ''
+      }
     },
-
     safari: {
       desiredCapabilities: {
         browserName: 'safari',
@@ -77,7 +74,6 @@ module.exports = {
         server_path: '',
       },
     },
-
     firefox: {
       desiredCapabilities: {
         browserName: 'firefox',
@@ -100,7 +96,6 @@ module.exports = {
         ],
       },
     },
-
     chrome: {
       desiredCapabilities: {
         browserName: 'chrome',
@@ -117,7 +112,6 @@ module.exports = {
           ],
         },
       },
-
       webdriver: {
         start_process: true,
         server_path: '',
@@ -126,7 +120,6 @@ module.exports = {
         ],
       },
     },
-
     edge: {
       desiredCapabilities: {
         browserName: 'MicrosoftEdge',
@@ -138,7 +131,6 @@ module.exports = {
           ],
         },
       },
-
       webdriver: {
         start_process: true,
         // Download msedgedriver from https://docs.microsoft.com/en-us/microsoft-edge/webdriver-chromium/
@@ -146,8 +138,8 @@ module.exports = {
         server_path: '',
         cli_args: [
           // --verbose
-        ],
-      },
-    },
-  },
+        ]
+      }
+    }
+  }
 }

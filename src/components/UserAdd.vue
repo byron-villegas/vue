@@ -299,7 +299,7 @@ validateForm();
                     :class="'form-control' + (form.rut.errors && form.rut.errors.length > 0 ? ' is-invalid' : '')"
                     id="rut" :minlength="form.rut.minLength" :maxlength="form.rut.maxLength" :value="form.rut.value"
                     :required="form.rut.required" @input="handleValueChange($event)" />
-                <span class="text-danger">
+                <span class="text-danger" id="rut-errors">
                     <div v-if="form.rut.errors && form.rut.errors.length > 0" v-for="(error, index) in form.rut.errors"
                         :key="index" class="text-danger">
                         {{ error }}
@@ -309,10 +309,10 @@ validateForm();
             <div class="mb-3">
                 <label for="nombres" class="form-label text-white">Nombres</label>
                 <input type="text"
-                    :class="'form-control' + (form.rut.errors && form.rut.errors.length > 0 ? ' is-invalid' : '')"
+                    :class="'form-control' + (form.nombres.errors && form.nombres.errors.length > 0 ? ' is-invalid' : '')"
                     id="nombres" :minlength="form.nombres.minLength" :maxlength="form.nombres.maxLength"
                     :value="form.nombres.value" :required="form.nombres.required" @input="handleValueChange($event)" />
-                <span class="text-danger">
+                <span class="text-danger" id="nombres-errors">
                     <div v-if="form.nombres.errors && form.nombres.errors.length > 0"
                         v-for="(error, index) in form.nombres.errors" :key="index" class="text-danger">
                         {{ error }}
@@ -322,11 +322,11 @@ validateForm();
             <div class="mb-3">
                 <label for="apellidos" class="form-label text-white">Apellidos</label>
                 <input type="text"
-                    :class="'form-control' + (form.rut.errors && form.rut.errors.length > 0 ? ' is-invalid' : '')"
+                    :class="'form-control' + (form.apellidos.errors && form.apellidos.errors.length > 0 ? ' is-invalid' : '')"
                     id="apellidos" :minlength="form.apellidos.minLength" :maxlength="form.apellidos.maxLength"
                     :value="form.apellidos.value" :required="form.apellidos.required"
                     @input="handleValueChange($event)" />
-                <span class="text-danger">
+                <span class="text-danger" id="apellidos-errors">
                     <div v-if="form.apellidos.errors && form.apellidos.errors.length > 0"
                         v-for="(error, index) in form.apellidos.errors" :key="index" class="text-danger">
                         {{ error }}
@@ -339,7 +339,7 @@ validateForm();
                     :class="'form-control' + (form.fechaNacimiento.errors && form.fechaNacimiento.errors.length > 0 ? ' is-invalid' : '')"
                     id="fechaNacimiento" min="1900-01-01" :value="form.fechaNacimiento.value"
                     :required="form.fechaNacimiento.required" @change="handleValueChange($event)" />
-                <span class="text-danger">
+                <span class="text-danger" id="fechaNacimiento-errors">
                     <div v-if="form.fechaNacimiento.errors && form.fechaNacimiento.errors.length > 0"
                         v-for="(error, index) in form.fechaNacimiento.errors" :key="index" class="text-danger">
                         {{ error }}
@@ -352,7 +352,7 @@ validateForm();
                     :class="'form-control' + (form.edad.errors && form.edad.errors.length > 0 ? ' is-invalid' : '')"
                     id="edad" readOnly :min="form.edad.min" :max="form.edad.max" :value="form.edad.value"
                     :required="form.edad.required" @change="handleValueChange($event)" />
-                <span class="text-danger">
+                <span class="text-danger" id="edad-errors">
                     <div v-if="form.edad.errors && form.edad.errors.length > 0"
                         v-for="(error, index) in form.edad.errors" :key="index" class="text-danger">
                         {{ error }}
@@ -370,7 +370,7 @@ validateForm();
                     :required="form.sexo.required && form.sexo.value === ''" :checked="form.sexo.value === 'F'"
                     @change="handleValueChange($event)" />
                 <label class="form-check-label text-white ms-1" for="sexoF">Femenino</label>
-                <span class="text-danger">
+                <span class="text-danger" id="sexo-errors">
                     <div v-if="form.sexo.errors && form.sexo.errors.length > 0"
                         v-for="(error, index) in form.sexo.errors" :key="index" class="text-danger">
                         {{ error }}
@@ -380,10 +380,10 @@ validateForm();
             <div class="mb-3">
                 <label for="saldo" class="form-label text-white">Saldo</label>
                 <input type="number"
-                    :class="'form-control' + (form.rut.errors && form.rut.errors.length > 0 ? ' is-invalid' : '')"
+                    :class="'form-control' + (form.saldo.errors && form.saldo.errors.length > 0 ? ' is-invalid' : '')"
                     id="saldo" :min="form.saldo.min" :max="form.saldo.max" :value="form.saldo.value"
                     :required="form.saldo.required" @input="handleValueChange($event)" />
-                <span class="text-danger">
+                <span class="text-danger" id="saldo-errors">
                     <div v-if="form.saldo.errors && form.saldo.errors.length > 0"
                         v-for="(error, index) in form.saldo.errors" :key="index" class="text-danger">
                         {{ error }}
