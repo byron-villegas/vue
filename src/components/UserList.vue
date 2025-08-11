@@ -43,5 +43,4 @@ function formatBalance(saldo: number): string {
     </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

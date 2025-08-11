@@ -4,6 +4,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'home',
+      component: () => import('../views/HomeView.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
@@ -27,6 +32,18 @@ const router = createRouter({
       component: () => import('../components/AmiiboView.vue'),
     }
   ],
+})
+
+// Guard general para rutas que requieren autenticacion
+router.beforeEach((to, from, next) => {
+  if (to.name === 'amiibo-view') {
+    const token = sessionStorage.getItem('token')
+
+    if (!token) {
+      return next({ name: 'home' })
+    }
+  }
+  next()
 })
 
 export default router
