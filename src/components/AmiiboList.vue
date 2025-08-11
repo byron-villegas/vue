@@ -27,7 +27,7 @@ onMounted(async () => {
                     <td>{{ index + 1 }}</td>
                     <td>{{ amiibo.name }}</td>
                     <td>
-                        <a :href="`/amiibos/${amiibo.name}`" class="text-decoration-none text-white">View</a>
+                        <a :href="`/amiibo/${amiibo.name}`" class="text-decoration-none text-white">View</a>
                     </td>
                 </tr>
             </tbody>

@@ -20,6 +20,11 @@ const router = createRouter({
       path: '/amiibos',
       name: 'amiibos',
       component: () => import('../components/AmiiboList.vue'),
+    },
+    {
+      path: '/amiibo/:id',
+      name: 'amiibo-view',
+      component: () => import('../components/AmiiboView.vue'),
     }
   ],
 })
