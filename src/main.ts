@@ -8,6 +8,7 @@ import { vHover } from './directives/hover'
 
 const app = createApp(App)
 
+// Registrar hover directive
 app.directive('hover', vHover)
 
 app.use(router)
