@@ -1,5 +1,6 @@
 import type { User } from '@/models/User'
 import { useUserStore } from '@/stores/UserStore'
+
 const userStore = useUserStore()
 
 export function getUsers(): User[] {

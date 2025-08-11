@@ -15,6 +15,11 @@ const router = createRouter({
       path: '/users',
       name: 'users',
       component: () => import('../components/UserDetail.vue'),
+    },
+    {
+      path: '/amiibos',
+      name: 'amiibos',
+      component: () => import('../components/AmiiboList.vue'),
     }
   ],
 })

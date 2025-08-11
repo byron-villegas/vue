@@ -44,10 +44,4 @@ function formatBalance(saldo: number): string {
 </template>
 
 <style scoped>
-.pointer {
-    cursor: pointer;
-}
-.hovered td {
-    background-color: #414142 !important;
-}
 </style>
