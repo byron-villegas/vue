@@ -32,18 +32,18 @@ const router = createRouter({
       component: () => import('../components/AmiiboView.vue'),
     }
   ],
-})
+});
 
 // Guard general para rutas que requieren autenticacion
 router.beforeEach((to, from, next) => {
   if (to.name === 'amiibo-view') {
-    const token = sessionStorage.getItem('token')
+    const token = sessionStorage.getItem('token');
 
     if (!token) {
-      return next({ name: 'home' })
+      return next({ name: 'home' });
     }
   }
-  next()
-})
+  next();
+});
 
 export default router

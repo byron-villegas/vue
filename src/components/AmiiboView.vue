@@ -4,13 +4,13 @@ import type { Amiibo } from '@/models/Amiibo';
 import { findAmiiboById } from '@/services/AmiiboService';
 import { onMounted, ref } from 'vue';
 
-const route = useRoute()
-const amiibo = ref<Amiibo | undefined>()
+const route = useRoute();
+const amiibo = ref<Amiibo | undefined>();
 
 onMounted(async () => {
-    const id = route.params.id as string
+    const id = route.params.id as string;
     amiibo.value = await findAmiiboById(id);
-})
+});
 
 </script>
 

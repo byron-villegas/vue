@@ -3,11 +3,11 @@ import type { Amiibo } from '@/models/Amiibo';
 import { findAmiibosBySerie } from '@/services/AmiiboService';
 import { onMounted, ref } from 'vue';
 
-const amiibos = ref<Amiibo[]>([])
+const amiibos = ref<Amiibo[]>([]);
 
 onMounted(async () => {
     amiibos.value = await findAmiibosBySerie('Smash');
-})
+});
 
 </script>
 
@@ -35,5 +35,4 @@ onMounted(async () => {
     </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

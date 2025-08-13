@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 import { useRoute } from 'vue-router';
 
 let currentYear = new Date().getFullYear();
@@ -37,7 +36,7 @@ const route = useRoute();
             </div>
         </div>
         <div className="container-fluid text-center vertical-line">
-            <p className="fw-light text-white mt-2">Copyright © {{currentYear}}. Todos los derechos reservados.</p>
+            <p className="fw-light text-white mt-2">Copyright © {{ currentYear }}. Todos los derechos reservados.</p>
         </div>
     </footer>
 </template>

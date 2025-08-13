@@ -6,12 +6,12 @@ import router from './router'
 import { createPinia } from 'pinia'
 import { vHover } from './directives/hover'
 
-const app = createApp(App)
+const app = createApp(App);
 
 // Registrar hover directive
-app.directive('hover', vHover)
+app.directive('hover', vHover);
 
-app.use(router)
-app.use(createPinia())
+app.use(router);
+app.use(createPinia());
 
-app.mount('#app')
+app.mount('#app');

@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { User } from '@/models/User';
 
-const props = defineProps<{
-    users: User[]
-}>()
+const props = defineProps<{ users: User[] }>();
 
 function formatBalance(saldo: number): string {
     let numberValue = Number(saldo) || 0;
